@@ -38,11 +38,11 @@ public class AppOrderTest {
     @Test
     void shouldTest() {
         driver.get("http://localhost:9999");
-        driver.findElement(By.cssSelector("[type='text']")).sendKeys("Иванов-Петров Иван");
-        driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+77777777777");
-        driver.findElement(By.cssSelector(".checkbox__box")).click();
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Иванов-Петров Иван");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+77777777777");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         driver.findElement(By.cssSelector("button")).click();
-        String actualMessage = driver.findElement(By.cssSelector(".Success_successBlock__2L3Cw")).getText();
+        String actualMessage = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText();
         String expectedMessage = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
         Assertions.assertEquals(expectedMessage, actualMessage.strip());
     }
@@ -54,7 +54,7 @@ public class AppOrderTest {
         driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+77777777777");
         driver.findElement(By.cssSelector(".checkbox__box")).click();
         driver.findElement(By.cssSelector("button")).click();
-        String actualMessage = driver.findElement(By.cssSelector("div:nth-child(1) > span > span > span.input__sub")).getText();
+        String actualMessage = driver.findElement(By.cssSelector(".input_invalid")).getCssValue("color");
         String expectedMessage = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
         Assertions.assertEquals(expectedMessage, actualMessage.strip());
     }
